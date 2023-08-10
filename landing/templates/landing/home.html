@@ -1,0 +1,147 @@
+{% extends 'landing/base.html' %}
+{% load static %}
+
+<!-- Block for additional head content -->
+{% block head_extra %}
+    <link rel="stylesheet" type="text/css" href="{% static 'landing/css/landing_styles.css' %}">
+
+    <!-- Link to Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- JS (including Popper.js for tooltips) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Link FontAwsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+    .hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 255, 0.1); /* Bluish tint */
+        z-index: -1; /* Place behind the content */
+    }
+    
+    .hero-section {
+        position: relative; /* Ensure proper stacking context */
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="content-container">
+        <!-- Left Shapes -->
+        <!--
+        <div class="shapes-left">
+            <div class="shape rounded"></div>
+            <div class="shape square"></div>
+        </div>
+        -->
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Hero Section -->
+            <section class="hero-section bg-dark text-secondary px-4 text-center" style="background:linear-gradient(rgba(7, 49, 100, 0.2), rgba(7, 49, 100, 0.6)),  url('{% static 'landing/img/hero-background.jpg' %}'); background-size: cover;">
+                <div class="hero-content">
+                    <!-- Shape 1 - Top Left -->
+                    <!--<div class="custom-shape custom-shape-top-left"></div>-->
+                    
+                    <!-- Shape 2 - Mid Right -->
+                    <!--<div class="custom-shape custom-shape-mid-right"></div>-->        
+
+                    <div class="py-5">
+                        <h1 class="display-5 fw-bold text-white">Investment Banking Made Easy</h1>
+                        <div class="col-lg-6 mx-auto">
+                            <p class="fs-5 mb-4">The ultimate tool for investment banking data management. Seamlessly upload, clean, score and manage your firm data. Crafted to enhance productivity and accuracy for investment banking professionals.</p>
+                            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                                <a href="{% url 'cleaner:file_list' %}" class="btn btn-outline-info btn-lg px-4" style="border-color:#2471FF;">Get Started</a>
+                                <a href="{% url 'helper:help_index' %}" class="btn btn-outline-light btn-lg px-4 me-sm-3 fw-bold">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="container text-center my-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <i class="fas fa-upload fa-3x mb-3"></i>
+                        <h3>Upload & Download Files</h3>
+                        <p>Effortlessly upload and download your excel and csv files.</p> 
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <i class="fas fa-table fa-3x mb-3"></i>
+                        <h3>Create Datasheets</h3>
+                        <p>Create, edit, and manage datasheets directly within the application.</p> 
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <i class="fas fa-magic fa-3x mb-3"></i>
+                        <h3>Automate Data Cleaning & Scoring Tasks</h3>
+                        <p>Advanced tools to clean, score, and optimize your data for accuracy.</p> 
+                    </div>
+                </div>
+            </section>
+
+            <hr style="border-width:0.5px;background-color:black;"></hr>
+
+            <section class="container text-center my-5">
+                <h2 class="display-5 fw-bold text-black" style="color:black;font-size:2rem;">Most Used Features</h2>
+                <div class="row mt-4 d-flex justify-content-center" style="margin-left:50px;">
+                    <!-- Upload and Download Files -->
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <i class="fas fa-upload fa-3x mb-3"></i>
+                                <h5 class="card-title">Upload & Download Files</h5>
+                                <p class="card-text">Effortlessly manage your files.</p>
+                                <a href="{% url 'cleaner:file_list' %}" class="btn btn-primary">Go to Feature</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Create Datasheets -->
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <i class="fas fa-table fa-3x mb-3"></i>
+                                <h5 class="card-title">Create Datasheets</h5>
+                                <p class="card-text">Design and manage your data sheets.</p>
+                                <a href="{% url 'cleaner:add_keywords' %}" class="btn btn-primary">Go to Feature</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Data Cleaning & Scoring -->
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <i class="fas fa-magic fa-3x mb-3"></i>
+                                <h5 class="card-title">Data Cleaning & Scoring</h5>
+                                <p class="card-text">Refine and optimize your data.</p>
+                                <a href="{% url 'cleaner:algorithms' %}" class="btn btn-primary">Go to Feature</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Right Shapes -->
+        <!--
+        <div class="shapes-right">
+            <div class="shape rounded"></div>
+            <div class="shape square"></div>
+        </div>
+        -->
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

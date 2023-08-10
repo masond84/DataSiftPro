@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100;0,300;0,500;0,700;1,100;1,300;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --primary-color: #2471FF;
+    --secondary-color: #6BB9FF;
+    --background-color: #E0EAFF;
+    --accent-color-1: #CADBFF;
+    --accent-color-2: #9CC5FF;
+    --accent-color-3: #292c30;
+    --accent-color-4: #073164;
+    --danger-color: #860101;
+}
+
+
+hr {
+    height: 3px;
+    color: #eeeeee;
+    margin: 20px 0 20px 0;
+}
+h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 24px;
+    text-align: center;
+}
+/* Form and Inpputs */
+.keyword-form {
+    margin: 15px auto;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.keyword-form label{
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+    margin: 10px;
+    color: #333;
+}
+.keyword-form input{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 15px;
+    color: var(--accent-color-3); /* Set the text color */
+    caret:var(--accent-color-3);
+}
+.keyword-form button {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-radius: 5px;
+    font-family: "Work Sans", sans-serif;
+    color: white;
+    margin-right: 15px;
+    padding: 4px 12px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.keyword-form button:hover {
+    background-color: #1a56d6;
+    border-color: #1a56d6;
+}
+
+/* Keyword Headings */
+h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Button */
+.btn-custom {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #ffffff;
+    margin: 10px 20px; /* Added space to the left and right */
+    transition: background-color 0.3s, border-color 0.3s;
+    white-space: nowrap; /* Prevents text from breaking into multiple lines */
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-custom:hover {
+    outline: none !important; /* Remove default outline */
+    background-color: #1a56d6 !important;
+    border-color: #1a56d6 !important;
+}
+
+/* Form Group Styling */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.keyword-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.keyword-form .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-group {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+    padding-right: 22px;
+    background-color: #f5f5f5;
+}
+
+/* Label Styling */
+.form-group label {
+    display: block; /* Display as block to place above input */
+    font-family: 'Work Sans', sans-serif; /* Change the font family */
+    font-size: 14px; /* Change the font size */
+    color: #333; /* Change the text color */
+}
+
+/* Input Styling */
+.form-input {
+    width: 100%; /* Full width */
+    padding: 10px;
+    border: 1px solid #ccc; /* Set border */
+    border-radius: 5px; /* Add rounded corners */
+    padding: 10px; /* Add padding */
+    margin-top: 5px; /* Add space between label and input */
+    font-family: 'Work Sans', sans-serif; /* Change the font family */
+    font-size: 14px; /* Change the font size */
+    color: var(--accent-color-3); /* Set the text color */
+    caret: var(--accent-color-3); /* Set the caret color */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Input Focus Styling */
+.form-input:focus {
+    border-color: #66afe9; /* Light blue border color on focus */
+    box-shadow: 0 0 5px rgba(102, 175, 233, 0.5); /* Add light blue box shadow on focus */
+}
+
+/* Handsontable Container */
+#hot {
+    width: 80%;
+    height: 300px;
+    overflow: hidden;
+    margin: 0 auto;
+    display: table;
+}
+#hot .handsontable td {
+    font-size: 15px;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 400;
+}

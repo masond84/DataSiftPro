@@ -1,0 +1,27 @@
+{% extends 'cleaner/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Upload a CSV or Excel File</h1>
+
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="card">
+                    <div class="card-header">Choose a file</div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.file.label_tag }}
+                                {{ form.file }}
+                            </div>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+{% endblock %}

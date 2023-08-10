@@ -1,0 +1,122 @@
+{% extends 'helper/base.html' %}
+{% load static %}
+
+{% block head_extra %}
+    <title>Help Center</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'helper/index_styles.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    
+    <style>
+        .help-section {
+            background-color: rgba(255, 255, 255, 0.6); /* Slightly white tinted background */
+            border: 3px solid #e0e0e0; /* Border */
+            border-radius: 0.5rem; 
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Box shadow */
+            padding: 20px;
+            text-align: center; /* Center the content */
+            margin: 15px;
+            width: 45%;
+            min-heiht: 250px;
+            overflow:hidden;
+        }
+        .help-section h3 {
+            text-align: center; /* Center the header */
+        }
+        .animated-link {
+            display: inline-block; /* Allows the transform property to be applied */
+            transition: transform 0.3s ease; /* Smooth transition effect */
+        }
+    
+        .animated-link:hover {
+            animation: upAndDown 1s infinite; /* Apply the up-and-down animation on hover */
+        }
+    
+        /* Define the up-and-down keyframes */
+        @keyframes upAndDown {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        .row {
+            justify-content: space-between;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container my-4">
+        <h1 class="text-center">Welcome to the Help Center</h1>
+        <p class="text-center">Learn how to use our Database Application for Investment Banking. Follow the guides below to get started.</p>
+
+        <div class="row">
+            <div class="help-section">
+                <h3 class="text-center">Files</h3>
+                <p class="text-center">Upload and manage your Excel/CSV files.</p>
+                <ol>
+                    <p>Go to the <a href="{% url 'cleaner:file_list' %}" class="animated-link" style="text-decoration:none;">Files Page</a></p>
+                    <p>Select "Upload" to add new files.</p>
+                    <p>Use the "Create" option to create new data frames.</p>
+                    <!-- Add more steps as needed -->
+                </ol>
+            </div>
+            <div class="help-section">
+                <h3 class="text-center">Algorithms</h3>
+                <p class="text-center">Run algorithms and data cleaning tasks on your files.</p>
+                <ol>
+                    <p>Visit the <a href="{% url 'cleaner:algorithms' %}" class="animated-link" style="text-decoration:none;">Algorithms Page</a></p>
+                    <p>Choose an algorithm or data task from the available cards.</p>
+                    <p>Follow the on-screen instructions to apply the selected task.</p>
+                    <!-- Add more steps as needed -->
+                </ol>
+            </div>
+        </div>
+        <!-- Message Form -->
+        <div class="row">
+            <div class="col-12 help-section">
+                <h3 class="text-center">Get In Touch</h3>
+                <p class="text-center">What can be improved? What is causing you issues? Whatever it is we would love to hear and address your issue.</p>
+                <form method="post" action="{% url 'helper:newsletter_signup' %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" name="name" class="form-control" placeholder="Name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" name="email" class="form-control" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <textarea name="message" class="form-control" placeholder="Your message" rows="4" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% if success %}
+        <!-- Display success message -->
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: 'Your message has been submitted successfully.',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        </script>
+    {% endif %}
+{% endblock %}

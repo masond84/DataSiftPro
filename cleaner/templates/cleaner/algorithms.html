@@ -1,0 +1,107 @@
+{% extends 'cleaner/base.html' %}
+{% load static %}
+
+{% block head_extra %}
+    <!-- Link Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'cleaner/css/algorithms_styles.css' %}">
+    <!-- Link to Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Link FontAwsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+{% endblock %}
+
+{% block content %}
+<h2 class="title-header">Algorithms</h2>
+<hr></hr>
+<div class="container-fluid content-center">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <!-- Card for each algorithm. You may need to iterate over a list of algorithms in your actual implementation. -->
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title text-center">Company Ranker</h5>
+                        </div>    
+                        
+                        <div class="card-content">    
+                            <p class="card-text text-center">This algorithm ranks companies based off of keyword criteria.</p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="{% url 'cleaner:ranking_script' %}" class="btn btn-primary">Use this algorithm</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more cards for each algorithm as necessary. -->
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title text-center">Outreach Owner Mapping Macro</h5>
+                        </div>
+                        
+                        <div class="card-content">
+                            <p class="card-text text-center">This is an excel macro that will automatically append all owner information into excel spreadsheets.</p>
+                        </div>
+                        <div class="card-footer text-center">
+                                <a href="{% url 'cleaner:download_algorithms' file_id=1 %}" class="btn btn-primary">Use this algorithm</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more cards for each algorithm as necessary. -->
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title text-center">Outreach Header Mapping Macro</h5>
+                        </div>
+                        
+                        <div class="card-content">
+                            <p class="card-text text-center">Seamlessly make Outreach.io import mappings. Automatically create relevent Prospect and Account headers.</p>
+                        </div>
+                        <div class="card-footer text-center">
+                                <a href="{% url 'cleaner:download_algorithms' file_id=2 %}" class="btn btn-primary">Use this algorithm</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more cards for each algorithm as necessary. -->
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title text-center">Email Extension Cleaner Macro</h5>
+                        </div>
+                        
+                        <div class="card-content">
+                            <p class="card-text text-center">This is an excel macro that will automatically clean and shorten email addresses. Quickly strip and search email domains.</p>
+                        </div>
+                        <div class="card-footer text-center">
+                                <a href="{% url 'cleaner:download_algorithms' file_id=3 %}" class="btn btn-primary">Use this algorithm</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more cards for each algorithm as necessary. -->
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title text-center">Website Extension Cleaner Macro</h5>
+                        </div>
+                        
+                        <div class="card-content">
+                            <p class="card-text text-center">This is an excel macro that will automatically clean and shorten web extensions. Effortlessly remove unwanted extensions for clean url links.</p>
+                        </div>
+                        <div class="card-footer text-center">
+                                <a href="{% url 'cleaner:download_algorithms' file_id=4%}" class="btn btn-primary">Use this algorithm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100;0,300;0,500;0,700;1,100;1,300;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --primary-color: #2471FF;
+    --secondary-color: #6BB9FF;
+    --background-color: #E0EAFF;
+    --accent-color-1: #CADBFF;
+    --accent-color-2: #9CC5FF;
+    --accent-color-3: #292c30;
+    --accent-color-4: #073164;
+    --black-color: #1b1b1b;
+}
+
+/* Navigation Bar */
+.navbar-custom {
+    background: linear-gradient(to top,#292c30,#073164);
+    height: 50px;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 400;
+}
+
+.navbar-custom .navbar-brand {
+    font-size: 24px;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+    padding-left: 20rem;
+    color: #ffffff;
+}
+
+.navbar-custom .navbar-nav {
+    justify-content: center;
+    width: 50%;
+    color: #ffffff;
+
+}
+.navbar-custom .nav-item .nav-link:hover {
+    color: var(--accent-color-1);
+}
+.nav-link-effect {
+    transition: color 0.3s, transform 0.3s;
+}
+.nav-link-effect:hover {
+    color: var(--accent-color-1);
+    transform: translate3d(10px, -10px, 2px);
+}
+/* Main Content */
+.container {
+    margin-top: 40px;
+}
+
+
+
+/* Footer Bar */
+.footer-content {
+    position: absolute;
+    top: -6px;
+    left: 120px;
+}
+.footer-custom {
+    position: absolute;
+    bottom: 0;
+    height: 4rem;
+    width: 100%;
+    background-color: var(--black-color);
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 1.5px;
+    padding: 10px 0;
+}

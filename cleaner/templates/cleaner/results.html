@@ -1,0 +1,76 @@
+{% extends 'cleaner/base.html' %}
+{% load static %}
+
+{% block head_extra %}
+    <title>{{file}}</title>
+    <!-- Link to Handsontable library -->
+    <link href="https://cdn.jsdelivr.net/npm/handsontable@10.0.0/dist/handsontable.full.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/handsontable@10.0.0/dist/handsontable.full.min.js"></script>
+    <!-- Link to Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- JS (including Popper.js for tooltips) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Link FontAwsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        #hot {
+            width: 80%;
+            height: 600px;
+            overflow: hidden;
+            margin: 0 auto; /* This will center the table */
+        }
+        .btn {
+            padding: 5px 10px;
+            font-family: "Work Sans", sans-serif;
+            font-weight: 400;
+            text-align:center;
+            margin: 10px;
+            color: #ffffff;
+            background-color: #2471FF;
+            border-color: #2471FF;
+            text-align: center;
+            transition: background-color 0.3s, border-color 0.3s, all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .btn:hover{
+            text-decoration: none;
+            transform: translateY(-5px); /* moves the button 5 pixels upwards */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* increased shadow for more depth */ 
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <h2 class="text-center">Updated File</h2>
+    
+    <div id="hot">{{ data | escapejs }}</div>
+
+    <!-- Buttons Container -->
+    <div class="btn-container">
+        <!-- Back Button -->
+        <a href="{% url 'cleaner:ranking_script' %}" class="btn rename-button">Back</a>
+        <!-- Download button -->
+        <a href="{% url 'cleaner:download_files' file_name=file_path %}" class="btn rename-button">Download Excel File</a>
+    </div>
+
+    <script>
+        var data = JSON.parse('{{ data | escapejs }}');
+
+        var container = document.getElementById('hot');
+        var hot = new Handsontable(container, {
+            data: data,
+            rowHeaders: true,
+            colHeaders: true,
+            filters: true,
+            dropdownMenu: true
+        });
+    </script> 
+{% endblock %}

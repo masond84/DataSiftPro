@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100;0,300;0,500;0,700;1,100;1,300;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --primary-color: #2471FF;
+    --secondary-color: #6BB9FF;
+    --background-color: #E0EAFF;
+    --accent-color-1: #CADBFF;
+    --accent-color-2: #9CC5FF;
+    --accent-color-3: #292c30;
+    --accent-color-4: #073164;
+}
+
+.content-center {
+    max-width: 100%;
+    margin-top: 5rem;
+}
+
+/* Header */
+.title-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: black;
+    font-weight: 600;
+    font-family: 'Work Sans', sans-serif;
+}
+
+hr {
+    
+}
+/* Card Styles */
+.card {
+    display: flex;
+    flex-direction: column;
+    max-width: 18rem;
+    height: 22rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 1s ease; 
+    margin-bottom: 1rem;
+    margin-right: 5rem;
+
+}
+.card:hover {
+    transform: translate3d(0, -5px, 0) scale3d(1.02, 1.02, 1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Content Styles */
+.card-header, .card-footer{
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card-title {
+    font-size: 1.5rem;
+    color: black;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 400;
+}
+.card-header{
+    padding: 1rem;
+}
+.card-content {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--accent-color-3);
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+.card-text {
+    margin: 0;
+    text-align: center;
+}
+/* Button Styling */
+.card-footer{
+    font-family: 'Work Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #ffffff;
+    /*padding: 10px 20px;*/
+    transition: background-color 0.3s, border-color 0.3s; 
+}
+.btn-primary:hover {
+    background-color: #1a56d6;
+    border-color: #1a56d6;
+}

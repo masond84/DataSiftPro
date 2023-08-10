@@ -1,0 +1,109 @@
+{% extends 'cleaner/base.html' %}
+{% load static %}
+
+{% block head_extra %}
+    <!-- Link Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'cleaner/css/uploads_files_styles.css' %}">
+    <!-- Link to Handsontable library -->
+    <link href="https://cdn.jsdelivr.net/npm/handsontable@10.0.0/dist/handsontable.full.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/handsontable@10.0.0/dist/handsontable.full.min.js"></script>
+    <!-- Link to Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- JS (including Popper.js for tooltips) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Link FontAwsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Filter Bar -->
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    File Type
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="?file_type=source">Source Files</a>
+                    <a class="dropdown-item" href="?file_type=keyword">Keyword Files</a>
+                    <a class="dropdown-item" href="?file_type=all">All Files</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-4 col-lg-3 file-sidebar">
+                <h2>Your Files</h2>
+                
+                <ul class="list-group">
+                    {% for file in files %}
+                        <li class="list-group-item">
+                            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                <div>
+                                    <h6>{{ file.name|default:file.upload.name }}</h6>
+                                </div>
+                                <form method="POST" action="{% url 'cleaner:delete_file' file.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn delete-btn">Delete</button>
+                                    <a href="{% url 'cleaner:file_detail' file.id %}" class="btn btn-primary">Edit</a>
+                                </form>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        {% if files.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1"><i class="fa fa-toggle-left"></i></a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ files.previous_page_number }}"><i class="fa fa-toggle-right"></i></a></li>
+                        {% endif %}
+                        {% for i in files.paginator.page_range %}
+                            {% if files.number == i %}
+                                <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if files.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ files.next_page_number }}"><i class="fa fa-toggle-right"></i></a></li>
+                            <!--<li class="page-item"><a class="page-link" href="?page={{ files.paginator.num_pages }}">Last</a></li>-->
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+            <!-- Upload Form -->
+            <div class="col-md-8 col-lg-9 py-5">
+                <h1 class="text-center mb-4">Upload a CSV or Excel File</h1>
+                <!-- Upload A Pre-Exsisting File -->
+                <div class="card mx-auto" style="max-width: 500px;">
+                    <div class="card-header">Choose a file</div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.upload.label_tag }}
+                                {{ form.upload }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.file_type.label_tag }}
+                                {{ form.file_type }}
+                            </div>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Upload / Create A Keyword File -->
+                <div class="card mx-auto mt-4" style="max-width:500px">
+                    <div class="card-header"> Create A Keyword File</div>
+                    <div class="card-body">
+                        <p>Create your own keyword file by adding keywords and their associated weights.</p>
+                        <a href="{% url 'cleaner:add_keywords' %}" class="btn btn-primary">Create Keywords</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+{% endblock %}
