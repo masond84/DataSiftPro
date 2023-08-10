@@ -1,0 +1,24 @@
+{% extends 'cleaner/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid" style="position:absolute;left:20px;width:50%;">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-4">
+                <h2>Files</h2>
+                <ul class="list-group">
+                    {% for file in files %}
+                        <li class="list-group-item" style="word-wrap: break-word">
+                            <a href="{% url 'cleaner:file_detail' file.id %}">{{ file.upload.name }}</a>
+                            <form method="POST" action="{% url 'cleaner:delete_file' file.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger" style="margin:20px 0px;">Delete</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

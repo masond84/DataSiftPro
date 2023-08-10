@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100;0,300;0,500;0,700;1,100;1,300;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --primary-color: #2471FF;
+    --secondary-color: #6BB9FF;
+    --background-color: #E0EAFF;
+    --accent-color-1: #CADBFF;
+    --accent-color-2: #9CC5FF;
+    --accent-color-3: #292c30;
+    --accent-color-4: #073164;
+}
+
+.form-container {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.form-label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.form-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-button:hover {
+    background-color: #0056b3;
+}
+
+.tooltip-icon {
+    display: inline-block;
+    margin-left: 5px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Styling the text input */
+.score-text-input {
+    width: 60px;  /* Fixed width for the text input */
+    margin-left: auto;  /* Push the input to the right */
+    transition: box-shadow 0.3s ease;  /* Smooth transition for the box-shadow on hover/focus */
+}
+
+.score-text-input:hover,
+.score-text-input:focus {
+    box-shadow: 0 0 10px blue;  /* Blue shadow on hover/focus */
+}
+
+/* Styling the slider */
+.score-slider {
+    width: 80%;  /* Make the slider take up more space */
+    display: block;  /* Make it a block element so it takes the full width */
+    margin: 0 auto;  /* Center the slider */
+}

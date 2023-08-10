@@ -1,0 +1,63 @@
+{% extends 'cleaner/base.html' %}
+{% load static %}
+
+{% block head_extra %}
+    <!-- Link to Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Link FontAwsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+{% endblock %}
+{% block content %}
+    <div class="form-position">
+        <div class="form-box">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="form-container">
+                            <form method="post" class="text-center">
+                                {% csrf_token %}
+                                
+                                <!-- Render the rename field -->
+                                <label for="{{ form.name.id_for_label }}" class="form-label">New Name</label>
+                                <input type="text" name="{{ form.name.name }}" id="{{ form.name.id_for_label }}" class="form-control" value="{{ form.name.value|default_if_none:"" }}">
+                                
+                                <button type="submit" class="btn btn-primary form-button mt-3">Rename</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .form-position {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh; /* Adjust the height to move the form up */
+        }
+        .form-box {
+            background-color: #f8f9fa;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2); /* Darken the shadow */
+            transition: all 0.3s ease; /* Add transition for smooth effects */
+        }
+        .form-box:hover {
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.3); /* Increase shadow on hover */
+            transform: scale(1.05); /* Slightly enlarge the form box on hover */
+        }
+        .form-input {
+            width: 500px;
+        }
+        .form-label {
+            font-size: 1.2rem;
+            font-weight:bold;
+        }
+    </style>
+{% endblock %}

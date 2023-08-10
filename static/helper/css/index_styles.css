@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100;0,300;0,500;0,700;1,100;1,300;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --primary-color: #2471FF;
+    --secondary-color: #6BB9FF;
+    --background-color: #E0EAFF;
+    --accent-color-1: #CADBFF;
+    --accent-color-2: #9CC5FF;
+    --accent-color-3: #292c30;
+    --accent-color-4: #073164;
+    --danger-color: #860101;
+}
+
+.help-section {
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly white tinted background */
+    border: 1px solid #e0e0e0; /* Border */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Box shadow */
+    padding: 20px;
+    text-align: center; /* Center the content */
+}
+.help-section h3 {
+    text-align: center; /* Center the header */
+}

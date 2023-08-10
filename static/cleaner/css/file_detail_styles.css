@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100;0,300;0,500;0,700;1,100;1,300;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --primary-color: #2471FF;
+    --secondary-color: #6BB9FF;
+    --background-color: #E0EAFF;
+    --accent-color-1: #CADBFF;
+    --accent-color-2: #9CC5FF;
+    --accent-color-3: #292c30;
+    --accent-color-4: #073164;
+    --danger-color: #860101;
+}
+#content-container {
+    padding: 20px; /* Add padding around the content */
+}
+/* Handsontable Container */
+#hot {
+    width: 80%;
+    height: 300px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+#hot .handsontable td {
+    font-size: 15px;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 400;
+}
+
+.jumbotron {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Work Sans", sans-serif;
+    padding: 8%;
+}
+.jumbotron a{
+    margin: 10px;
+}
+.jumbotron .display-4 {
+    font-weight: 500;
+    font-size: 1.5rem;
+    text-align: center;
+}
+.jumbotron .lead{
+    font-size: 1rem;
+    text-align: center;
+}
+.jumbotron .rename-button {
+    padding: 5px 10px;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 400;
+    text-align: center;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #ffffff;
+    margin: 10px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+#download-button {
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    text-align: center;
+}
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn, .rename-button {
+    padding: 5px 10px;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 400;
+    text-align: center;
+    color: #ffffff;
+    margin: 10px;
+    transition: background-color 0.3s, border-color 0.3s, all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.btn:hover, .rename-button:hover{
+    text-decoration: none;
+    transform: translateY(-5px); /* moves the button 5 pixels upwards */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* increased shadow for more depth */
+}

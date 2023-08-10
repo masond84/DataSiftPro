@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100;0,300;0,500;0,700;1,100;1,300;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --primary-color: #2471FF;
+    --secondary-color: #6BB9FF;
+    --background-color: #E0EAFF;
+    --accent-color-1: #CADBFF;
+    --accent-color-2: #9CC5FF;
+    --accent-color-3: #292c30;
+    --accent-color-4: #073164;
+    --danger-color: #860101;
+}
+
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-wrap: nowrap;
+}
+/* New container styling */
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--accent-color-4); /* Bluish tint */
+    z-index: 0; /* Place behind the content */
+}
+.hero-section {
+    position: relative; /* Ensure proper stacking context */
+    overflow: hidden;
+}
+.hero-section > * {
+    position: relative; /* Position children relative to the section */
+    z-index: 1; /* Place children above the pseudo-element */
+}
+.hero-container {
+    overflow: hidden; /* Ensure child elements don't overflow */
+    position: relative; /* Set as a reference for absolute positioning */
+    width: 100%; /* Take up the full width */
+    height: 100%; /* Take up the full height */
+}
+section.bg-dark {
+    overflow: hidden;
+    border-radius: 20px;
+}
+/* Hero Header */
+.display-5{
+    color: #fff;
+    font-size: 3rem;
+    font-family: "Work Sans", sans-serif;
+}
+/* Hero Body Content */
+section.bg-dark .hero-content p {
+    font-size: 1rem;
+    color: #f1f1f1;
+    line-height: 1.5;
+}
+.btn-outline-info.btn-lg {
+    margin-right: 20px;
+    border-color: #2471FF;
+    color: #ffffff;
+}
+
+.btn-outline-info.btn-lg:hover {
+    background-color: #2471FF;
+    border-color: #2471FF;
+    color: #ffffff;
+}
+
+.main-content {
+    flex: 2;
+}
+
+/* Font Awsome Libraries */
+.fas{
+    color: var(--accent-color-4);
+}
+
+/* ==== Card Styling ====*/
+.card {
+    display: flex;
+    flex-direction: row;
+    max-width: 25rem;
+    max-height: 15rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 1s ease;
+    margin-bottom: 1rem;
+    margin-right: 5rem;
+}
+.card:hover {
+    transform: translate3d(0, -5px, 0) scale3d(1.02, 1.02, 1);
+    box-shadow: 0 10px 20 px rgba(0, 0, 0, 0.2);
+}
+/* Card Content Styles */
+.card-header, .card-footer{
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card-title {
+    font-size: 1.5rem;
+    color: black;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 400;
+}
+.card-header{
+    padding: 1rem;
+}
+.card-content {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--accent-color-3);
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+.card-text {
+    margin: 0;
+    text-align: center;
+}
+/* Button Styling */
+.card-footer{
+    font-family: 'Work Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #ffffff;
+    transition: background-color 0.3s, border-color 0.3s; 
+}
+.btn-primary:hover {
+    background-color: #1a56d6;
+    border-color: #1a56d6;
+}
+/* Base shape styling */
+.custom-shape {
+    position: absolute; /* Absolute positioning to place shapes */
+    background-color: #fff; /* White circle color */
+    border-radius: 50%; /* Circle shape */
+}
+
+
+/* Top left circle shape */
+.custom-shape-top-left {
+    width: 100px; /* Adjust size */
+    height: 100px;
+    top: 100px; /* Adjust position from top */
+    left: 280px; /* Adjust position from left */
+    background-color: var(--accent-color-2);
+    transform: rotate(180deg);
+    clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 0% 60%);
+}
+
+/* Mid right circle shape */
+.custom-shape-mid-right {
+    width: 70px; /* Adjust size */
+    height: 70px; /* Adjust size */
+    top: 50%; /* Position to middle */
+    right: 10px; /* Adjust position from right */
+    transform: translateY(-50%); /* Center align vertically */
+}
+

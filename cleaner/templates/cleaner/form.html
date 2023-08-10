@@ -1,0 +1,152 @@
+{% extends 'cleaner/base.html' %}
+{% load static %}
+
+{% block head_extra %}
+    <!-- link stylng sheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'cleaner/css/form_styles.css' %}">
+    <!-- Link to Handsontable library -->
+    <link href="https://cdn.jsdelivr.net/npm/handsontable@10.0.0/dist/handsontable.full.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/handsontable@10.0.0/dist/handsontable.full.min.js"></script>
+    <!-- Link to Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- JS (including Popper.js for tooltips) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Link FontAwsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="form-container">
+                <form method="post" class="text-center" action="{% url 'cleaner:ranking_script' %}">
+                    {% csrf_token %}
+                    <!-- Render the filepath field -->
+                    <label for="{{ form.filepath.id_for_label }}" class="form-label">
+                        Filepath
+                        <i class="fas fa-question-circle" data-toggle="tooltip" title="Source File"></i>
+                    </label>
+                    <select name="{{ form.filepath.name }}" id="{{ form.filepath.id_for_label }}" class="form-field">
+                        {% for choice in form.filepath.field.choices %}
+                            <option value="{{ choice.0 }}" {% if form.filepath.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                        {% endfor %}
+                    </select>
+                    <!-- Render the keyword_file filed -->
+                    <label for="{{ form.keyword_file.id_for_label }}" class="form-label">
+                        Keyword File
+                        <i class="fas fa-question-circle" data-toggle="tooltip" title="Check for keywords within various Company fields."></i>
+                    </label>
+                    <select name="{{ form.keyword_file.name }}" id="{{ form.keywords_file.id_for_label }}" class="form-field">
+                        {% for choice in form.keyword_file.field.choices %}
+                            <option value="{{ choice.0 }}" {% if form.keyword_file.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                        {% endfor %}
+                    </select>
+                    <!-- Render the name_keyword_file field -->
+                    <label for="{{ form.name_keyword_file.id_for_label }}" class="form-label">
+                        Name Keyword File
+                        <i class="fas fa-question-circle" data-toggle="tooltip" title="Check for keywords within the Company Name."></i>
+                    </label>
+                    
+                    <select name="{{ form.name_keyword_file.name }}" id="{{ form.name_keyword_file.id_for_label }}" class="form-field">
+                        {% for choice in form.name_keyword_file.field.choices %}
+                            <option value="{{ choice.0 }}" {% if form.name_keyword_file.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                        {% endfor %}
+                    </select>
+                    <!-- Render the employee_file field -->
+                    <label for="{{ form.employee_range_file.id_for_label }}" class="form-label">
+                        Employee Count File
+                        <i class="fas fa-question-circle" data-toggle="tooltip" title="This field is optional; sliders will replace its job."></i>
+                    </label>
+                    <select name="{{ form.employee_range_file.name  }}" id="{{ form.employee_range_file.id_for_label }}" class="form-field">
+                        {% for choice in form.employee_range_file.field.choices %}
+                            <option value="{{ choice.0 }}" {% if form.employee_range_file.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                        {% endfor %}
+                    </select>
+                    <hr></hr>
+                    <!-- Employee Range Functionality -->
+                    <!-- Slider 1 -->
+                    <div class="mt-3">
+                        <label for="{{ form.high_threshold.id_for_label }}" class="form-label">
+                            Employee High Count
+                            <i class="fas fa-question-circle" data-toggle="tooltip" title="Any company with the employee count or greater will recieve the associated score. (IN DEV.)"></i>
+                        </label>
+                        <input type="text" name="{{ form.high_threshold.name }}" id="{{ form.high_threshold.id_for_label }}" class="form-field" value="{{ form.high_threshold.initial }}">
+                        <input type="range" name="{{ form.high_score.name }}" value="{{ form.high_score.initial }}" min="0" max="100" class="score-slider">
+                        <input type="text" name="score_high_text" value="{{ form.high_score.initial }}" class="score-text-input">
+                        <span>Score</span>
+                    </div>
+                    <!-- Slider 2 -->
+                    <div class="mt-3">
+                        <label for="{{ form.mid_threshold.id_for_label }}" class="form-label">
+                            Employee Mid Count
+                            <i class="fas fa-question-circle" data-toggle="tooltip" title="Any company with the employee count or greater will recieve the associated score."></i>
+                        </label>
+                        <input type="text" name="{{ form.mid_threshold.name }}" id="{{ form.mid_threshold.id_for_label }}" class="form-field" value="{{ form.mid_threshold.initial }}">
+                        <input type="range" name="{{ form.mid_score.name }}" value="{{ form.mid_score.initial }}" min="0" max="100" class="score-slider">
+                        <input type="text" name="score_mid_text" value="{{ form.mid_score.initial }}" class="score-text-input">
+                        <span>Score</span>
+                    </div>
+                    <!-- Slider 3 -->
+                    <div class="mt-3">
+                        <label for="{{ form.low_threshold.id_for_label }}" class="form-label">
+                            Employee Low Count
+                            <i class="fas fa-question-circle" data-toggle="tooltip" title="Any company with the employee count or greater will recieve the associated score."></i>    
+                        </label>
+                        <input type="text" name="{{ form.low_threshold.name }}" id="{{ form.low_threshold.id_for_label }}" class="form-field" value="{{ form.low_threshold.initial }}">
+                        <input type="range" name="{{ form.low_score.name }}" value="{{ form.low_score.initial }}" min="0" max="100" class="score-slider">
+                        <input type="text" name="score_low_text" value="{{ form.low_score.initial }}" class="score-text-input">
+                        <span>Score</span>
+                    </div>
+
+                    
+
+                    <button type="submit" class="btn btn-primary form-button" style="margin-top:15px;">Run script</button>
+                </form>
+            </div>
+            <p class="text-center">After running the script you will get a ranked file of companies.</p>
+        </div>
+    </div>
+</div>
+<!-- List slider changes -->
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+        
+        // Synchronize slider with text input
+        $('.score-slider').on('input', function() {
+            let currentValue = $(this).val();
+            $(this).next('.score-text-input').val(currentValue);
+        });
+        
+        // Synchronize text input with slider and update max value if necessary
+        $('.score-text-input').on('input', function() {
+            let currentValue = parseInt($(this).val());
+            
+            // Set the max value of the slider based on the user input, if it's greater than the current max
+            if (currentValue > $(this).prev('.score-slider').attr('max')) {
+                $(this).prev('.score-slider').attr('max', currentValue);
+            }
+            
+            // Reset to a default max value if user's input is below a threshold (e.g., 100)
+            if (currentValue < 100) {
+                $(this).prev('.score-slider').attr('max', 500);  // Default max value
+            }
+    
+            $(this).prev('.score-slider').val(currentValue);
+        });
+        // Check if sliders were interacted with before submitting form
+        $('form').on('submit', function(e) {
+            $('.score-slider').each(function() {
+                if ($(this).val() == $(this).attr('initial')) {
+                    alert('The slider needs to be used');
+                    e.preventDefault(); // prevent form submission
+                    return false; // break out of the .each loop
+                }
+            });
+        });
+    });    
+</script>
+{% endblock %}

@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100;0,300;0,500;0,700;1,100;1,300;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --primary-color: #2471FF;
+    --secondary-color: #6BB9FF;
+    --background-color: #E0EAFF;
+    --accent-color-1: #CADBFF;
+    --accent-color-2: #9CC5FF;
+    --accent-color-3: #292c30;
+    --accent-color-4: #073164;
+    --danger-color: #860101;
+}
+
+/* Line break */
+
+/* Dropdown Filter */
+.dropdown .btn-secondary {
+    background-color: var(--accent-color-4);
+    border-color: var(--accent-color-4);
+    color: #fff;
+    /*position: absolute;
+    top: 20px;
+    left: 350px;*/
+}
+
+/* File List */
+.file-sidebar h2 {
+    font-family: 'Work Sans', sans-serif; /* Matching font family */
+    font-weight: 500; /* Bold text */
+    text-align: center; /* Centering the text */
+    margin-bottom: 10px; /* Spacing between the <h2> and <hr> tags */
+}
+.file-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.list-group-item {
+    background-color: #eeeeee;
+    border-radius: 5px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    position: relative;
+    min-height: 80px;
+    overflow: hidden;
+    width: 20rem;
+    margin-bottom: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.list-group-item h6 {
+    flex-grow: 1;
+    padding: 0 10px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+}
+
+/* Primary Buttons */
+.delete-btn, .btn-primary {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+}
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #ffffff;
+    margin: 10px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+.btn-primary:hover {
+    background-color: #1a56d6;
+    border-color: #1a56d6;
+}
+/* Delete Button */
+.delete-btn {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+    color: #ffffff;
+    margin: 10px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+.delete-btn:hover {
+    background-color: #6a0101;
+    border-color: #6a0101;
+    color: #ffffff;
+}
+
+/* Pagination */
+.page-nav {
+    margin-top: 2rem;
+}
+.pagination .page-link {
+    color: var(--primary-color);
+}
+.pagination .page-item.active .page-link {
+    background-color: #0169D9;
+    border-color: #0169D9;
+    color: #ffffff;
+}
+
+
+/* Upload Form */
+.card {
+    border-radius: 3px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+}
+/* Card Header Styling */
+.card-header {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+    background-color: #eeeeee;
+    color: black;
+    position: relative;
+}
+/* Card Body Styling */
+.card-body {
+    text-align: center;
+    font-family: 'Work Sans', sans-serif;
+}
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 20px;
+}

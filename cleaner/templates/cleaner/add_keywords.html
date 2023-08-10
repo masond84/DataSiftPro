@@ -1,0 +1,81 @@
+{% extends 'cleaner/base.html' %}
+{% load static %}
+
+{% block head_extra %}
+    <!-- link stylng sheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'cleaner/css/add_keywords_styles.css' %}">
+    <!-- Link to Handsontable library -->
+    <link href="https://cdn.jsdelivr.net/npm/handsontable@10.0.0/dist/handsontable.full.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/handsontable@10.0.0/dist/handsontable.full.min.js"></script>
+    <!-- Link to Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #hot {
+            width: 80%;
+            height: 300px; /* Adjust height as needed */
+            overflow: hidden;
+            margin: 0 auto; /* This will center the table */
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h3>Your Keyword List</h3>
+    <!-- Add Keyword Form -->
+    <div class="form-container">
+        <form method="post" class="keyword-form">
+            {% csrf_token %}
+            <div class="form-group form-group-keywords">
+                <div class="container">
+                    <div class="input-row">
+                        <input type="text" name="{{ form.keyword.name }}" class="form-input" placeholder="Add keyword here" value="{{ form.keyword.value|default_if_none:'' }}" />
+                        <input type="text" name="{{ form.weight.name }}" class="form-input" placeholder="Add weight here" value="{{ form.weight.value|default_if_none:'' }}" />
+                    </div>
+                    <button type="submit" class="btn-custom">Submit Keyword</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <hr></hr>
+
+    <div id="hot"></div> <!-- Handsontable container -->
+
+    <!--<a href="{% url 'cleaner:save_keywords' %}" class="btn btn-primary">Save</a>-->
+    
+    <!-- Name Keywords Form -->
+    <div class="form-container">
+        <form method="post" action="{% url 'cleaner:save_keywords' %}" class="keyword-form">
+            {% csrf_token %}
+            <div class="form-group form-group-filename">
+                <div class="container">
+                    <input type="text" name="filename" id="filename" class="form-input" placeholder="Name your keyword file" required>
+                    <button type="submit" class="btn-custom">Save</button>
+                </div>
+            </div>        
+        </form>
+    </div>
+    <script>
+        // Convert keywords to a format suitable for Handsontable
+        var data = [
+            {% for keyword, weight in keywords %}
+                [ "{{ keyword }}", {{ weight }} ],
+            {% endfor %}
+        ];
+
+        var container = document.getElementById('hot');
+        var hot = new Handsontable(container, {
+            data: data,
+            rowHeaders: true,
+            colHeaders: ['Keyword', 'Weight'], // Column headers
+            filters: true,
+            dropdownMenu: true,
+            contextMenu: ['remove_row'],
+        });
+
+        // Clear the session keywords when the user leaves the page
+        window.addEventListener('beforeunload', function() {
+            // Make an AJAX call to a Django view that clears the session keywords
+            $.post("{% url 'cleaner:clear_keywords' %}");
+        });
+    </script>
+{% endblock %}
