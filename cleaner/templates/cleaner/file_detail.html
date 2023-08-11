@@ -8,16 +8,6 @@
     <!-- Link to Handsontable library -->
     <link href="https://cdn.jsdelivr.net/npm/handsontable@10.0.0/dist/handsontable.full.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/handsontable@10.0.0/dist/handsontable.full.min.js"></script>
-    <!--
-    <style>
-        .table-wrapper {
-            display: flex; /* Enable flexbox layout */
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            width: 100%; /* Full width */
-            height: 500px; /* Set a fixed height or adjust as needed */
-        }
-    </style>-->
 {% endblock %}
 
 {% block content %}
@@ -33,7 +23,7 @@
                 <!-- Download button -->
                 <a href="{% url 'cleaner:download_files' file_name=file_path %}" class="btn btn-primary">Download Excel File</a>
                 <!-- Save Button -->
-                <a href="{% url 'cleaner:save_file_content' %}" id="saveButton" class="btn btn-success">Save Changes</a>
+                <!--<a id="saveButton" class="btn btn-success">Save Changes</a>-->
             </div>
         </div>
 
@@ -44,10 +34,8 @@
         </div>
     </div>
     <script>
-        
         var data = JSON.parse('{{ df |escapejs }}');
         var headers = data[0]
-        console.log(headers)
         var actualData = data.slice(1)
 
         var container = document.getElementById('hot');
@@ -59,21 +47,17 @@
           dropdownMenu: true,
           contextMenu: ['row_above', 'row_below', 'col_left', 'col_right', 'remove_row', 'remove_col']
         });
-
-        document.getElementById("saveButton").addEventListener("click", function(event) {
-            event.preventDefault(); // Prevent the default action of the anchor tag
-            
+        
+        function saveData() {
             var updatedData = hot.getData();
-            console.log(updatedData)
-
             var headers = hot.getColHeader();
             var dataToSend = {
                 'headers': headers,
-                'updated_data': JSON.stringify(updatedData),
+                'updated_data': updatedData,
                 'file_pk': '{{ file.pk }}'
             };
-        
-            // Use AJAX to send data to server
+
+            // Use Ajax to send data to server
             fetch('{% url "cleaner:save_file_content" %}', {
                 method: 'POST',
                 headers: {
@@ -84,11 +68,20 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert(data.message);  // Display the returned message in an alert.
-                if(data.success) {
-                    location.reload();  // Refresh the page to display updated content.
+                if (data.success) {
+                    console.log(data.message); // log the message
+                } else {
+                    alert(data.message); // Alert error message
                 }
             });
+        }
+
+        document.getElementById("saveButton").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent the default action of the anchor tag
+            saveData(); 
         });
+
+        // Save data every 30 secs
+        setInterval(saveData, 30000);
     </script>
 {% endblock %}

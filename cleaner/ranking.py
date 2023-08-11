@@ -11,7 +11,6 @@ def get_keyword_weights(filepath):
     {'keyword': weight}
     """
     try:
-        print(f"Reading File: {filepath}")
         # Read the file using pandas, depending on the file type
         df = pd.read_csv(filepath) if filepath.endswith('.csv') else pd.read_excel(filepath)
         
@@ -36,7 +35,6 @@ def get_keyword_weights(filepath):
             raise ValueError("File does not contain both 'Keyword' and 'Weight' columns.")
     except Exception as e:
     # Print an error message if there's an issue reading the file
-        print("Error Reading File: ", e)
         # Return an empty dictionary if there's an error
         return {}
 
@@ -64,7 +62,7 @@ specialty_scores = []
 specialty_keywords = []
 employee_scores = []
 
-def rank_company(row, keywords, thresholds, scores):
+def rank_company(row, keywords, thresholds_scores):
     # Overall score for each individual company
     score = 0
     # assign the dictionary of keywords/weights 
@@ -181,27 +179,23 @@ def rank_company(row, keywords, thresholds, scores):
     specialty_text = (f"{counts}")
     specialty_keywords.append(specialty_text)
 
-    ''' Revise and Edit how we rank according to employee count'''
     #### CHECK EMPLOYEE COUNT TO ADD TO SCORE ####
     # dynamic employee count function
     employee_score = 0
-    matched = False
     
-    for i, threshold in enumerate(thresholds):
-        print(f'Threshold: {thresholds}:{threshold}')
+    # Iterate through the sorted threshold_scores dictionary
+    
+    for threshold, score_value in thresholds_scores.values():
         if row['Employee Count'] >= threshold:
-            print(f'Adding the {scores[i]} score for the current threshold {[i]}')
-            employee_score = scores[i]
-            matched = True
+            employee_score = score_value
             break
-        
     employee_scores.append(employee_score)
     score += employee_score
     
     # return the final score value of each company
     return score
 
-def rank_companies(filepath, keyword_file, thresholds, scores, company_count=1000000):
+def rank_companies(filepath, keyword_file, threshold_scores, company_count=1000000):
     global name_scores, n_keywords, desc_scores, desc_keywords, industry_scores, industry_keywords, specialty_scores, specialty_keywords, employee_scores
     #### Score Lists ####
     name_scores = []
@@ -234,7 +228,7 @@ def rank_companies(filepath, keyword_file, thresholds, scores, company_count=100
 
     ### Create New Columns Below ###
     # apply the ranking function to each row of the dataframe
-    df['Score'] = df.apply(lambda x: rank_company(x, keywords, thresholds, scores), axis=1)
+    df['Score'] = df.apply(lambda x: rank_company(x, keywords, threshold_scores), axis=1)
     df['Name Score'] = name_scores
     df['Name Keywords'] = n_keywords
     df['Description Score'] = desc_scores
@@ -244,27 +238,11 @@ def rank_companies(filepath, keyword_file, thresholds, scores, company_count=100
     df['Specialty Score'] = specialty_scores
     df['Specialty Keywords'] = specialty_keywords
     df['Employee Score'] = employee_scores
-    '''
-    # Convert employee_scores to a DataFrame
-    employee_scores_df = pd.DataFrame(employee_scores, columns=['Employee Score'])
-    print(employee_scores_df)
-    # Find the indices in df that are missing in employee_scores_df
-    missing_indices = set(df.index) - set(employee_scores_df.index)
-    print(missing_indices)
-    # Filter the main DataFrame to get the rows with missing scores
-    missing_scores = df.loc[list(missing_indices)]
-    print(missing_scores)
-    print("Companies missing scores:", missing_scores['Company Name'].tolist())
-    '''
+    
     # apply the individual scores 
     df.to_excel(FNAME, index=False)
     # sort the companies by score in descending order
     df_sorted = df.sort_values('Score', ascending=False)
-    # add the 
-    # select the top 50-100 companies
-    company_rank = company_count # specify the amount of companies you want to display
-    condensed_list = df_sorted.head(company_rank)
-
 
     # Check the column names and assign the correct one
     if "Latest Estimated Revenue" in df.columns:
@@ -291,7 +269,7 @@ def rank_companies(filepath, keyword_file, thresholds, scores, company_count=100
     ws.append(header)
         
     # print the top 50-100 companies
-    for i, row in condensed_list.iterrows():
+    for i, row in df_sorted.iterrows():
         # print the index of that row in the dataframe, the name of the company, and the company score
         #print(f"{row['Company Name']}: {row['Website']}: Score: {row['Score']}")
         # Add Company Headers

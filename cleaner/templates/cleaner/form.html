@@ -65,6 +65,7 @@
                             <option value="{{ choice.0 }}" {% if form.employee_range_file.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
                         {% endfor %}
                     </select>
+
                     <hr></hr>
                     <!-- Employee Range Functionality -->
                     <!-- Slider 1 -->
@@ -73,9 +74,9 @@
                             Employee High Count
                             <i class="fas fa-question-circle" data-toggle="tooltip" title="Any company with the employee count or greater will recieve the associated score. (IN DEV.)"></i>
                         </label>
-                        <input type="text" name="{{ form.high_threshold.name }}" id="{{ form.high_threshold.id_for_label }}" class="form-field" value="{{ form.high_threshold.initial }}">
-                        <input type="range" name="{{ form.high_score.name }}" value="{{ form.high_score.initial }}" min="0" max="100" class="score-slider">
-                        <input type="text" name="score_high_text" value="{{ form.high_score.initial }}" class="score-text-input">
+                        <input type="text" name="{{ form.high_threshold.name }}" id="{{ form.high_threshold.id_for_label }}" class="form-field">
+                        <input type="range" name="{{ form.high_score.name }}" min="0" max="500" class="score-slider">
+                        <input type="text" name="score_high_text" class="score-text-input">
                         <span>Score</span>
                     </div>
                     <!-- Slider 2 -->
@@ -84,9 +85,9 @@
                             Employee Mid Count
                             <i class="fas fa-question-circle" data-toggle="tooltip" title="Any company with the employee count or greater will recieve the associated score."></i>
                         </label>
-                        <input type="text" name="{{ form.mid_threshold.name }}" id="{{ form.mid_threshold.id_for_label }}" class="form-field" value="{{ form.mid_threshold.initial }}">
-                        <input type="range" name="{{ form.mid_score.name }}" value="{{ form.mid_score.initial }}" min="0" max="100" class="score-slider">
-                        <input type="text" name="score_mid_text" value="{{ form.mid_score.initial }}" class="score-text-input">
+                        <input type="text" name="{{ form.mid_threshold.name }}" id="{{ form.mid_threshold.id_for_label }}" class="form-field">
+                        <input type="range" name="{{ form.mid_score.name }}" min="0" max="250" class="score-slider">
+                        <input type="text" name="score_mid_text" class="score-text-input">
                         <span>Score</span>
                     </div>
                     <!-- Slider 3 -->
@@ -95,9 +96,9 @@
                             Employee Low Count
                             <i class="fas fa-question-circle" data-toggle="tooltip" title="Any company with the employee count or greater will recieve the associated score."></i>    
                         </label>
-                        <input type="text" name="{{ form.low_threshold.name }}" id="{{ form.low_threshold.id_for_label }}" class="form-field" value="{{ form.low_threshold.initial }}">
-                        <input type="range" name="{{ form.low_score.name }}" value="{{ form.low_score.initial }}" min="0" max="100" class="score-slider">
-                        <input type="text" name="score_low_text" value="{{ form.low_score.initial }}" class="score-text-input">
+                        <input type="text" name="{{ form.low_threshold.name }}" id="{{ form.low_threshold.id_for_label }}" class="form-field">
+                        <input type="range" name="{{ form.low_score.name }}" min="0" max="100" class="score-slider">
+                        <input type="text" name="score_low_text" class="score-text-input">
                         <span>Score</span>
                     </div>
 

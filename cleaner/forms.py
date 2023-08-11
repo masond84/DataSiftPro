@@ -19,14 +19,14 @@ class FileForm(forms.Form):
     employee_range_file = forms.ModelChoiceField(queryset=File.objects.all(), required=False)
     
     # Employee Count Thresholds #
-    low_threshold = forms.IntegerField(initial=200, label="Employee Count Threshold 1")
-    mid_threshold = forms.IntegerField(initial=50, label="Employee Count Threshold 2")
-    high_threshold = forms.IntegerField(initial=0, label="Employee Count Threshold 3")
+    low_threshold = forms.IntegerField(label="Employee Count Threshold 1")
+    mid_threshold = forms.IntegerField(label="Employee Count Threshold 2")
+    high_threshold = forms.IntegerField(label="Employee Count Threshold 3")
     
     # Scoring Using Sliders
-    low_score = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'min':0, 'max':100}), initial=100, label="Score for Threshold 1")
-    mid_score = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'min':0, 'max':100}), initial=50, label="Score for Threshold 2")
-    high_score = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'min':0, 'max':100}), initial=25, label="Score for Threshold 3")
+    low_score = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'min':0, 'max':100}),  label="Score for Threshold 1")
+    mid_score = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'min':0, 'max':250}),  label="Score for Threshold 2")
+    high_score = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'min':0, 'max':500}), label="Score for Threshold 3")
     
 # Create a form for keyword uploading
 class KeywordWeightForm(forms.Form):

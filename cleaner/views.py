@@ -15,6 +15,7 @@ from django.urls import reverse
 import pandas as pd
 import os
 import json
+import openpyxl
 from os.path import basename
 import csv
 from datetime import datetime
@@ -36,7 +37,6 @@ class FileRenameView(UpdateView):
         file_obj = form.instance
         # Get the new name from the form
         new_name = form.cleaned_data['name']
-        print(form.cleaned_data)
         # Call a custom method to handle the renaming
         file_obj.rename_file(new_name)
         
@@ -147,12 +147,10 @@ def delete_file(request, file_id):
 def rename_file(request, pk):
     if request.method == "POST":
         new_name = request.POST.get('new_name')
-        print(new_name)
         file = get_object_or_404(File, pk=pk)
         
         file.name = new_name
         file.save()
-        print('saved file')
         return JsonResponse({"success": True})
     else:
         return JsonResponse({"success": False, "error": "Invalid request method"})
@@ -189,15 +187,16 @@ def save_file_content(request):
     try: 
         data = json.loads(request.body)
         file_pk = data['file_pk']
+        print("File PK:", file_pk)
         file = File.objects.get(pk=file_pk)  # Get the file object first
 
         updated_data = data['updated_data']
+        print("Updated Data:", updated_data)
         headers = data['headers']
-        
-        updated_data = json.loads(updated_data)
 
         # convert the data to a dataframe
         df = pd.DataFrame(updated_data, columns=headers)
+        print("Dataframe:", df)
         
         # save the dataframe to the respective file type
         file_extension = os.path.splitext(file.upload.name)[1].lower()
@@ -205,29 +204,26 @@ def save_file_content(request):
 
         if file_extension == ".xlsx":
             output = BytesIO()
-            writer = pd.ExcelWriter(output, engine='xlsxwriter')
+            writer = pd.ExcelWriter(output, engine='openpyxl')
             df.to_excel(writer, index=False)
             writer.close() # Close the writer to flush the contents to the BytesIO object
             output.seek(0)
             content_file = ContentFile(output.read())
-            file.upload.save(original_filename, content_file, save=True)
-            mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         elif file_extension == ".csv":
             output = df.to_csv(index=False)
-            mime_type = "text/csv"
+            content_file = ContentFile(output.encode('utf-8'))
         else:
             raise ValueError("Unsupported File Format")
 
         # Save the BytesIO object or string content as the file content
-        file.upload.save(original_filename, ContentFile(output.getvalue() if file_extension == ".xlsx" else output), save=True)
+        file.upload.save(original_filename, content_file, save=True)
         
         message = "The file was successfully saved and updated"
         return JsonResponse({'success': True, 'message': message})
     except Exception as e:
-        print(str(e))
         message = f"Error saving file: {str(e)}"
         return JsonResponse({'success': False, 'message': message})
-    
+ 
 ## Download Files ##
 def download_files(request, file_name):
     # Build the file path
@@ -256,12 +252,9 @@ def algorithms(request):
 
 # Run Company Ranking Algorithm
 def run_script_1(request):
-    print('Run Script function running')
     if request.method == "POST":
-        print(f"Recieved POST request: {request.POST} ")
         form = FileForm(request.POST, request.FILES)
         if form.is_valid():
-            print("Form is valid")
             filepath = form.cleaned_data['filepath'].upload.path
             keyword_file = form.cleaned_data['keyword_file'].upload.path
             #name_keyword_file = form.cleaned_data['name_keyword_file'].upload.path
@@ -280,49 +273,27 @@ def run_script_1(request):
                     mid_score=form.cleaned_data['mid_score'],
                     high_score=form.cleaned_data['high_score']
                 )
-                
-            # If the user does not provide the slider values or employee_range_files
-            if not all([form.cleaned_data.get('low_threshold'), form.cleaned_data.get('mid_threshold'), form.cleaned_data.get('high_threshold')]):
-                # Default logic
-                print("Running Default Logic")
-                thresholds = [200, 50, 0]
-                scores = [100, 50, 25]
-            else:
-                print("Running User Logic")
-                # Extracting thresholds and scores 
-                thresholds = [
-                    form.cleaned_data['high_threshold'],
-                    form.cleaned_data['mid_threshold'],
-                    form.cleaned_data['low_threshold'],
-                ]
-                scores = [
-                    form.cleaned_data['high_score'],
-                    form.cleaned_data['mid_score'],
-                    form.cleaned_data['low_score'],
-                ]
-                
-                thresholds, scores = zip(*sorted(zip(thresholds, scores), reverse=True))
-                
-            print("Threshold 1:", form.cleaned_data['low_threshold'])
-            print("Slider 1 (Score):", form.cleaned_data['low_score'])
-            print("Threshold 2:", form.cleaned_data['mid_threshold'])
-            print("Slider 2 (Score):", form.cleaned_data['mid_score'])
-            print("Threshold 3:", form.cleaned_data['high_threshold'])
-            print("Slider 3 (Score):", form.cleaned_data['high_score'])
+            
+            # Retrieve the latest EmployeeCountScoring object
+            employee_scoring = EmployeeCountScoring.objects.latest('id')
+            thresholds_scores = {
+                'high': (employee_scoring.high_threshold, employee_scoring.high_score),
+                'mid': (employee_scoring.mid_threshold, employee_scoring.mid_score),
+                'low': (employee_scoring.low_threshold, employee_scoring.low_score)
+            }
+            # Sort the dictionary by threshold in descending order
+            thresholds_scores = dict(sorted(thresholds_scores.items(), key=lambda x: x[1][0], reverse=True))
+            
             #
-            rank_companies(filepath, keyword_file, thresholds, scores)
-            print("Rank companies function executed")
+            rank_companies(filepath, keyword_file, thresholds_scores)
             # Read the updated Excel File into a pandas dataframe
             df = pd.read_excel(filepath)
-            print("Read excel file into dataframe")
             # Convert the dataframe into JSON
             data_json = df.to_json(orient="records")
             
             return render(request, "cleaner/results.html", {'data': data_json, 'file_path': filepath})
-        else:
-            print(f"Form is not valid: {form.errors}")
+
     else:
-        print("Not a POST request")
         form = FileForm()
     return render(request, 'cleaner/form.html', {'form': form})
 
